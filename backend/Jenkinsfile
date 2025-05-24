@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'my-backend-app'  // Change to your image name
+        IMAGE_NAME = 'convey'  // Change to your image name
         IMAGE_TAG = "latest"
         BACKEND_DIR = 'backend'
     }
