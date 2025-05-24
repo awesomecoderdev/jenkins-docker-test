@@ -5,6 +5,7 @@ pipeline {
         IMAGE_NAME = 'convey'  // Change to your image name
         IMAGE_TAG = "latest"
         BACKEND_DIR = 'backend'
+        NETWORK = 'services_default'
     }
 
     stages {
@@ -34,7 +35,7 @@ pipeline {
                     """
 
                     // Run container exposing port 3000
-                    sh "docker run -d --name ${IMAGE_NAME} -p 3000:3000 ${IMAGE_NAME}:${IMAGE_TAG}"
+                    sh "docker run -d --name ${IMAGE_NAME}  --network ${NETWORK} -p 3000:3000 ${IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
         }
