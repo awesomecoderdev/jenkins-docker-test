@@ -3,8 +3,8 @@ FROM oven/bun
 # env
 ENV NODE_ENV=production \
     JWT_SECRET="base64:m3zBmb0c6JmR0chXm6aPHzBokTSmPKnVvWmwHA26oJU=" \
-    DATABASE_URL='mongodb://root:password@localhost:27017/convey?authSource=admin' \
-    REDIS_HOST=localhost \
+    DATABASE_URL='mongodb://root:password@mongodb:27017/convey?authSource=admin' \
+    REDIS_HOST=redis \
     REDIS_PASSWORD=awesomecoder \
     REDIS_PORT=6379
 
