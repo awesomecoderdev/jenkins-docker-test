@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'my-backend-app'  // Change to your image name
+        IMAGE_TAG = "latest"
+        BACKEND_DIR = 'backend'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    dockerImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}", "${BACKEND_DIR}")
+                }
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                script {
+                    // Stop and remove previous container if exists
+                    sh """
+                    if [ \$(docker ps -q -f name=${IMAGE_NAME}) ]; then
+                        docker stop ${IMAGE_NAME}
+                        docker rm ${IMAGE_NAME}
+                    fi
+                    """
+
+                    // Run container exposing port 3000
+                    sh "docker run -d --name ${IMAGE_NAME} -p 3000:3000 ${IMAGE_NAME}:${IMAGE_TAG}"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up unused images...'
+            sh 'docker image prune -f'
+        }
+        success {
+            echo 'Build and deployment successful!'
+        }
+        failure {
+            echo 'Build or deployment failed!'
+        }
+    }
+}
