@@ -21,6 +21,9 @@ RUN bun install
 COPY . .
 
 # Build the application
+RUN bun run build
+
+# Build the application
 EXPOSE 3000
 
 # Run the application

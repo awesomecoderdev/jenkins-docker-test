@@ -2,7 +2,9 @@
 	"name": "convey-ai-backend",
 	"scripts": {
 		"dev": "bun run --watch src/index.ts",
-		"db:seed": "bun run src/models/database/seed.ts"
+		"db:seed": "bun run src/models/database/seed.ts",
+		"build": "bun build src/index.ts --out dist/index.js",
+		"start": "bun run dist/index.js"
 	},
 	"dependencies": {
 		"@hono/zod-validator": "^0.5.0",
