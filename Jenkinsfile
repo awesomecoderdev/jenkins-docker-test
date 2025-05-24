@@ -4,7 +4,7 @@ pipeline {
     stage('Test') {
       steps {
         sh '''
-          node --version
+          bun --version
           git --version
           curl --version
         '''
